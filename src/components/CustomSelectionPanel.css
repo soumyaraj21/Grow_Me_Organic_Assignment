@@ -1,0 +1,75 @@
+.custom-select-btn {
+  font-size: 0.8rem !important;
+  padding: 0.4rem 0.85rem !important;
+  border: 1px solid #dee2e6 !important;
+  color: #6c757d !important;
+  background: white !important;
+  font-weight: 400 !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.custom-select-btn:hover {
+  background: #f8f9fa !important;
+  border-color: #adb5bd !important;
+  color: #495057 !important;
+}
+
+.custom-selection-panel {
+  width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.selection-panel-content {
+  padding: 1rem;
+}
+
+.selection-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.selection-input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.selection-input input {
+  font-size: 0.875rem !important;
+  padding: 0.5rem !important;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.submit-btn {
+  background: #007bff !important;
+  border-color: #007bff !important;
+  color: white !important;
+  font-size: 0.85rem !important;
+  padding: 0.4rem 0.9rem !important;
+}
+
+.submit-btn:hover {
+  background: #0056b3 !important;
+  border-color: #0056b3 !important;
+}
+
+.cancel-btn {
+  font-size: 0.85rem !important;
+  padding: 0.4rem 0.9rem !important;
+  border-color: #6c757d !important;
+  color: #6c757d !important;
+}
+
+.cancel-btn:hover {
+  background: #f8f9fa !important;
+  border-color: #495057 !important;
+  color: #495057 !important;
+}

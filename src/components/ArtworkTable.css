@@ -1,0 +1,157 @@
+.artwork-table-container {
+    padding: 1.5rem;
+    max-width: 100%;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.selection-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selection-info span {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.875rem;
+}
+
+.clear-btn {
+    background: #dc3545;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s ease;
+}
+
+.clear-btn:hover {
+    background: #c82333;
+}
+
+.artwork-datatable {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.artwork-datatable .p-datatable-thead>tr>th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    padding: 1rem 1.25rem !important;
+}
+
+.artwork-datatable .p-datatable-tbody>tr>td {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    padding: 1rem 1.25rem !important;
+}
+
+.artwork-datatable .p-datatable-tbody>tr {
+    height: auto;
+}
+
+.artwork-datatable .p-paginator {
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.artwork-datatable .p-paginator .p-paginator-current {
+    order: 1;
+    margin-right: auto;
+}
+
+.artwork-datatable .p-paginator .p-paginator-first,
+.artwork-datatable .p-paginator .p-paginator-prev,
+.artwork-datatable .p-paginator .p-paginator-pages,
+.artwork-datatable .p-paginator .p-paginator-next,
+.artwork-datatable .p-paginator .p-paginator-last {
+    order: 2;
+}
+
+.artwork-datatable .p-paginator .p-paginator-first,
+.artwork-datatable .p-paginator .p-paginator-prev,
+.artwork-datatable .p-paginator .p-paginator-next,
+.artwork-datatable .p-paginator .p-paginator-last,
+.artwork-datatable .p-paginator .p-paginator-page {
+    min-width: 2rem !important;
+    height: 2rem !important;
+    margin: 0 0.15rem !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+    border: 1px solid #dee2e6 !important;
+    background: white !important;
+    color: #495057 !important;
+    padding: 0.25rem 0.5rem !important;
+}
+
+.artwork-datatable .p-paginator .p-paginator-page.p-highlight {
+    background: #007bff !important;
+    color: white !important;
+    border-color: #007bff !important;
+}
+
+.artwork-datatable .p-paginator .p-paginator-first:not(.p-disabled):hover,
+.artwork-datatable .p-paginator .p-paginator-prev:not(.p-disabled):hover,
+.artwork-datatable .p-paginator .p-paginator-next:not(.p-disabled):hover,
+.artwork-datatable .p-paginator .p-paginator-last:not(.p-disabled):hover,
+.artwork-datatable .p-paginator .p-paginator-page:not(.p-highlight):hover {
+    background: #f8f9fa !important;
+    border-color: #adb5bd !important;
+}
+
+.artwork-datatable .p-paginator .p-disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+}
+
+.artwork-datatable .p-paginator .p-paginator-pages {
+    display: flex;
+    gap: 0.15rem;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-container h2 {
+    color: #e74c3c;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.error-container p {
+    color: #7f8c8d;
+    max-width: 500px;
+}
+
+@media (max-width: 768px) {
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selection-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
