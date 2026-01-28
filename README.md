@@ -218,7 +218,8 @@ npm run build
 The application is deployed using **Netlify**.
 
 **Live URL:**  
-🔗 https://gmo-assignmentt.netlify.app/
+🔗 Live Demo: https://soumya-artwork-gallery.netlify.app/
+
 
 **Configuration:**
 - Build command: `npm run build`
