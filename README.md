@@ -9,31 +9,27 @@
 
 **A React + TypeScript application displaying artwork from the Art Institute of Chicago API with advanced pagination and selection features**
 
+(🔗 Live Demo: https://soumya-artwork-gallery.netlify.app/)
+
+
 </div>
 
 ---
 
 ## 📋 Overview
 
-This project is built for the **Grow Me Organic React Internship Assignment**.  
-It implements a data table with **server-side pagination** and **persistent row selection** using the  
-**Art Institute of Chicago Public API**.
+This project is built for the **Grow Me Organic React Internship Assignment**. It implements a data table with server-side pagination and persistent row selection using the [Art Institute of Chicago API](https://api.artic.edu/api/v1/artworks).
 
-The main focus of this assignment is to efficiently manage large datasets while ensuring correct selection behavior across multiple pages without unnecessary data fetching.
-
----
-
-## ✅ Assignment Requirements Met
+### ✅ Assignment Requirements Met
 
 - ✅ Built with **Vite** and **TypeScript** (not JavaScript)
 - ✅ Uses **PrimeReact DataTable** component
-- ✅ Displays all required fields:  
-  `title`, `place_of_origin`, `artist_display`, `inscriptions`, `date_start`, `date_end`
-- ✅ Implements **server-side pagination** (fetches data per page)
+- ✅ Displays all required fields: `title`, `place_of_origin`, `artist_display`, `inscriptions`, `date_start`, `date_end`
+- ✅ Implements **server-side pagination** (fetches data per page, not all at once)
 - ✅ Row selection with checkboxes (individual and page-level)
 - ✅ **Custom bulk selection** via overlay panel
 - ✅ **Persistent selection** across page navigation
-- ✅ **No prefetching** – Uses ID-based tracking instead of storing row objects
+- ✅ **No prefetching** - Uses ID-based tracking strategy instead of storing row objects
 
 ---
 
@@ -45,8 +41,8 @@ The main focus of this assignment is to efficiently manage large datasets while 
 - No caching of previous pages
 
 ### 2. Row Selection
-- Select and deselect individual rows
-- Select and deselect all rows on the current page
+- Select/deselect individual rows
+- Select/deselect all rows on current page
 - Custom bulk selection via overlay panel (select first N rows)
 - Real-time selection count display
 
@@ -59,11 +55,11 @@ The main focus of this assignment is to efficiently manage large datasets while 
 
 ## 🛠 Tech Stack
 
-- **React** 19.2.0 – UI Framework  
-- **TypeScript** 5.9.3 – Type Safety  
-- **Vite** 7.2.4 – Build Tool  
-- **PrimeReact** 10.9.7 – DataTable Component  
-- **Art Institute of Chicago API** – Data Source  
+- **React** 19.2.0 - UI Framework
+- **TypeScript** 5.9.3 - Type Safety
+- **Vite** 7.2.4 - Build Tool
+- **PrimeReact** 10.9.7 - DataTable Component
+- **Art Institute of Chicago API** - Data Source
 
 ---
 
@@ -77,7 +73,7 @@ The main focus of this assignment is to efficiently manage large datasets while 
 
 ```bash
 # Clone the repository
-git clone https://github.com/IshankAggarwal09/Grow_Me_Organic_Assignment
+git clone https://github.com/soumyaraj21/Grow_Me_Organic_Assignment
 cd Grow_Me_Organic_Assignment
 
 # Install dependencies
@@ -93,35 +89,30 @@ npm run build
 The application will run on `http://localhost:5173`
 
 ---
-##🎮 Usage
-View Artworks – Table loads with 12 artworks on page 1
 
-Navigate Pages – Use pagination controls at the bottom
+## 🎮 Usage
 
-Select Rows – Click checkboxes to select individual rows
+1. **View Artworks**: Table loads with 12 artworks on page 1
+2. **Navigate Pages**: Use pagination controls at the bottom
+3. **Select Rows**: Click checkboxes to select individual rows
+4. **Select All on Page**: Click header checkbox
+5. **Custom Selection**: 
+   - Click "Custom Select" button
+   - Enter number of rows (e.g., 50)
+   - Click Submit
+   - First N rows across all pages will be selected
 
-Select All on Page – Click header checkbox
+### Testing Persistent Selection
+1. Select some rows on page 1
+2. Navigate to page 2
+3. Return to page 1
+4. ✅ Your selections are still there!
 
-Custom Selection
+---
 
-Click the "Custom Select" button
+## 🏗 Project Structure
 
-Enter number of rows (e.g., 50)
-
-Click Submit
-
-First N rows across all pages will be selected
-
-Testing Persistent Selection
-Select some rows on page 1
-
-Navigate to page 2
-
-Return to page 1
-
-✅ Selected rows remain selected
-
-🏗 Project Structure
+```
 src/
 ├── components/
 │   ├── ArtworkTable.tsx          # Main table component
@@ -139,113 +130,181 @@ src/
 ├── App.css
 ├── main.tsx
 └── index.css
-🔑 Key Implementation: Selection Strategy
-The Challenge
-Maintain selection across pages WITHOUT prefetching or storing row objects from other pages.
+```
 
-The Solution: Global Index Calculation
+---
+
+## 🔑 Key Implementation: Selection Strategy
+
+### The Challenge
+Maintain selection across pages **WITHOUT** prefetching or storing row objects from other pages.
+
+### The Solution: Global Index Calculation
+
+Instead of fetching rows from other pages, we use a mathematical approach:
+
+```typescript
+// Calculate global position of any row
 const globalIndex = (currentPage - 1) * rowsPerPage + localIndex;
-How It Works
-Two Selection Modes:
+```
 
-Normal Mode
+### How It Works
 
-Tracks individual selections using a Set of selected row IDs
+**Two Selection Modes:**
 
-Bulk Mode
+1. **Normal Mode**: Tracks individual selections via `selectedIds` Set
+2. **Bulk Mode**: Uses global index to determine if a row should be selected
 
-Uses global index calculation to determine whether a row should be selected
-
-Explicit deselections are tracked separately
-
-Example: Selecting First 50 Rows
-
-Page 1 (rows 0–11):   All selected ✓
-Page 2 (rows 12–23):  All selected ✓
-Page 3 (rows 24–35):  All selected ✓
-Page 4 (rows 36–47):  All selected ✓
-Page 5 (rows 48–59):  First 2 selected ✓
+**Example: Selecting First 50 Rows**
+```
+Page 1 (rows 0-11):   All selected ✓
+Page 2 (rows 12-23):  All selected ✓
+Page 3 (rows 24-35):  All selected ✓
+Page 4 (rows 36-47):  All selected ✓
+Page 5 (rows 48-59):  First 2 selected ✓
 Page 6+:              None selected
-Why This Approach?
-✅ Memory efficient
+```
 
-✅ No prefetching
+**Data Structures:**
+- `selectedIds`: Set of explicitly selected row IDs
+- `deselectedIds`: Set of explicitly deselected row IDs (in bulk mode)
+- `bulkSelectionCount`: Number of rows to select from start
 
-✅ O(1) lookups using Set
+### Why This Approach?
 
-✅ Scales well for large datasets
+✅ **Memory Efficient** - Only stores IDs, not full objects  
+✅ **No Prefetching** - Doesn't fetch pages in advance  
+✅ **Fast** - O(1) lookups with Set data structure  
+✅ **Scalable** - Works with any number of rows  
+✅ **Compliant** - Meets assignment requirements  
 
-✅ Fully compliant with assignment requirements
+---
 
-🌐 API Integration
-Endpoint:
+## 🌐 API Integration
 
-https://api.artic.edu/api/v1/artworks?page={pageNumber}
-Fields Displayed:
+**Endpoint:** `https://api.artic.edu/api/v1/artworks?page={pageNumber}`
 
-title – Artwork title
+**Response Structure:**
+```typescript
+{
+  pagination: {
+    total: number,
+    limit: number,
+    current_page: number,
+    // ...
+  },
+  data: Artwork[]
+}
+```
 
-place_of_origin – Origin location
+**Fields Displayed:**
+- `title` - Artwork title
+- `place_of_origin` - Origin location
+- `artist_display` - Artist information
+- `inscriptions` - Inscriptions (shows "N/A" if null)
+- `date_start` - Start date
+- `date_end` - End date
 
-artist_display – Artist information
+---
 
-inscriptions – Inscriptions (shows "N/A" if null)
+## 🚀 Deployment
 
-date_start – Start date
+### Build Command
+```bash
+npm run build
+```
 
-date_end – End date
+### Deployment Platform
+The application is deployed using **Netlify**.
 
-🧪 Testing Checklist
- Initial page loads with 12 artworks
+**Live URL:**  
+🔗 https://gmo-assignmentt.netlify.app/
 
- Pagination controls work
+**Configuration:**
+- Build command: `npm run build`
+- Publish directory: `dist`
 
- Individual row selection works
+---
 
- Select all on page works
+## 🧪 Testing Checklist
 
- Custom selection overlay works
+- [x] Initial page loads with 12 artworks
+- [x] Pagination controls work
+- [x] Individual row selection works
+- [x] Select all on page works
+- [x] Custom selection overlay works
+- [x] Selections persist across pages
+- [x] Clear selection works
+- [x] Selection count updates correctly
+- [x] Handles selecting more rows than available
+- [x] Loading and error states work
 
- Selections persist across pages
+---
 
- Selection count updates correctly
+## 📝 Code Quality
 
- Handles edge cases
+- **TypeScript**: Strict mode enabled, no `any` types
+- **ESLint**: Configured with React and TypeScript rules
+- **Code Organization**: Modular components and custom hooks
+- **Comments**: Comprehensive inline documentation
+- **Type Safety**: All components and functions are fully typed
 
- Loading and error states work
+---
 
-📝 Code Quality
-TypeScript strict mode enabled
+## 🎯 Assignment Compliance
 
-No any types
+### ✅ Implementation Approach
 
-Modular component structure
+1. **No Prefetching**: Rows from other pages are not fetched and stored
+2. **ID-Based Tracking**: Only row IDs are stored, not full objects
+3. **Fresh API Calls**: Each page navigation fetches fresh data
+4. **Efficient Strategy**: Global index calculation for bulk selection
 
-Reusable custom hooks
+### ❌ Avoided Anti-Patterns
 
-Clear and maintainable logic
+```typescript
+// ❌ AVOIDED: This type of logic that fetches multiple pages
+while (collected < count) {
+  const response = await fetch(`/artworks?page=${currentPage}`);
+  // ... storing rows from other pages
+}
+```
 
-👩‍💻 Author
-Soumya Raj
+Instead, the implementation uses:
+```typescript
+// ✅ USED: Mathematical approach with global index
+const globalIndex = (currentPage - 1) * rowsPerPage + index;
+if (globalIndex < bulkSelectionCount) {
+  return !deselectedIds.has(artwork.id);
+}
+```
 
-🎓 3rd Year B.Tech CSE (AI)
+---
 
-💻 Frontend / React Developer
+## 👩‍💻 Author
 
-GitHub: https://github.com/soumyaraj21
+**Soumya Raj**
 
-Email: soumya2115@gmail.com
+- 🎓 3rd Year B.Tech CSE (AI)
+- 💻 Frontend / React Developer
+- GitHub: https://github.com/soumyaraj21
+- Email: soumya2115@gmail.com
 
-🙏 Acknowledgments
-Art Institute of Chicago for the public API
 
-PrimeReact for the DataTable component
+---
 
-Grow Me Organic for the assignment opportunity
+## 🙏 Acknowledgments
+
+- **Art Institute of Chicago** for the public API
+- **PrimeReact** for the DataTable component
+- **Grow Me Organic** for the assignment opportunity
+
+---
 
 <div align="center">
-Made with ❤️ by Soumya Raj for the Grow Me Organic Internship Assignment
+
+**Made with ❤️ for Grow Me Organic Internship Assignment**
 
 ⭐ If you found this project helpful, please give it a star!
 
-</div> ```
+</div>
