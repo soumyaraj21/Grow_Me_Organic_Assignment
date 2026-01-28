@@ -1,4 +1,4 @@
-## 🎨 Artwork Gallery - React Data Table Application
+# 🎨 Artwork Gallery - React Data Table Application
 
 <div align="center">
 
@@ -17,7 +17,7 @@
 
 This project is built for the **Grow Me Organic React Internship Assignment**.  
 It implements a data table with **server-side pagination** and **persistent row selection** using the  
-[Art Institute of Chicago API](https://api.artic.edu/api/v1/artworks).
+**Art Institute of Chicago Public API**.
 
 The main focus of this assignment is to efficiently manage large datasets while ensuring correct selection behavior across multiple pages without unnecessary data fetching.
 
@@ -29,11 +29,11 @@ The main focus of this assignment is to efficiently manage large datasets while 
 - ✅ Uses **PrimeReact DataTable** component
 - ✅ Displays all required fields:  
   `title`, `place_of_origin`, `artist_display`, `inscriptions`, `date_start`, `date_end`
-- ✅ Implements **server-side pagination** (fetches data per page, not all at once)
+- ✅ Implements **server-side pagination** (fetches data per page)
 - ✅ Row selection with checkboxes (individual and page-level)
 - ✅ **Custom bulk selection** via overlay panel
 - ✅ **Persistent selection** across page navigation
-- ✅ **No prefetching** – Uses ID-based tracking strategy instead of storing row objects
+- ✅ **No prefetching** – Uses ID-based tracking instead of storing row objects
 
 ---
 
@@ -45,8 +45,8 @@ The main focus of this assignment is to efficiently manage large datasets while 
 - No caching of previous pages
 
 ### 2. Row Selection
-- Select/deselect individual rows
-- Select/deselect all rows on current page
+- Select and deselect individual rows
+- Select and deselect all rows on the current page
 - Custom bulk selection via overlay panel (select first N rows)
 - Real-time selection count display
 
@@ -59,11 +59,11 @@ The main focus of this assignment is to efficiently manage large datasets while 
 
 ## 🛠 Tech Stack
 
-- **React** 19.2.0 – UI Framework
-- **TypeScript** 5.9.3 – Type Safety
-- **Vite** 7.2.4 – Build Tool
-- **PrimeReact** 10.9.7 – DataTable Component
-- **Art Institute of Chicago API** – Data Source
+- **React** 19.2.0 – UI Framework  
+- **TypeScript** 5.9.3 – Type Safety  
+- **Vite** 7.2.4 – Build Tool  
+- **PrimeReact** 10.9.7 – DataTable Component  
+- **Art Institute of Chicago API** – Data Source  
 
 ---
 
@@ -77,7 +77,7 @@ The main focus of this assignment is to efficiently manage large datasets while 
 
 ```bash
 # Clone the repository
-git clone https://github.com/soumyaraj21/Grow_Me_Organic_Assignment
+git clone https://github.com/IshankAggarwal09/Grow_Me_Organic_Assignment
 cd Grow_Me_Organic_Assignment
 
 # Install dependencies
@@ -88,20 +88,23 @@ npm run dev
 
 # Build for production
 npm run build
-The application will run on http://localhost:5173
+```
 
-🎮 Usage
-View Artworks: Table loads with 12 artworks on page 1
+The application will run on `http://localhost:5173`
 
-Navigate Pages: Use pagination controls at the bottom
+---
+##🎮 Usage
+View Artworks – Table loads with 12 artworks on page 1
 
-Select Rows: Click checkboxes to select individual rows
+Navigate Pages – Use pagination controls at the bottom
 
-Select All on Page: Click header checkbox
+Select Rows – Click checkboxes to select individual rows
 
-Custom Selection:
+Select All on Page – Click header checkbox
 
-Click "Custom Select" button
+Custom Selection
+
+Click the "Custom Select" button
 
 Enter number of rows (e.g., 50)
 
@@ -116,7 +119,7 @@ Navigate to page 2
 
 Return to page 1
 
-✅ Your selections are still there
+✅ Selected rows remain selected
 
 🏗 Project Structure
 src/
@@ -147,11 +150,11 @@ Two Selection Modes:
 
 Normal Mode
 
-Tracks individual selections via a Set of selected row IDs
+Tracks individual selections using a Set of selected row IDs
 
 Bulk Mode
 
-Uses global index calculation to decide whether a row should be selected
+Uses global index calculation to determine whether a row should be selected
 
 Explicit deselections are tracked separately
 
@@ -163,35 +166,21 @@ Page 3 (rows 24–35):  All selected ✓
 Page 4 (rows 36–47):  All selected ✓
 Page 5 (rows 48–59):  First 2 selected ✓
 Page 6+:              None selected
-Data Structures Used:
-
-selectedIds: Set of explicitly selected row IDs
-
-deselectedIds: Set of explicitly deselected IDs (bulk mode)
-
-bulkSelectionCount: Number of rows selected from the start
-
 Why This Approach?
-✅ Memory Efficient – Only stores IDs, not full objects
-✅ No Prefetching – Doesn't fetch pages in advance
-✅ Fast – O(1) lookups using Set
-✅ Scalable – Works with any number of rows
-✅ Compliant – Meets assignment requirements
+✅ Memory efficient
+
+✅ No prefetching
+
+✅ O(1) lookups using Set
+
+✅ Scales well for large datasets
+
+✅ Fully compliant with assignment requirements
 
 🌐 API Integration
 Endpoint:
+
 https://api.artic.edu/api/v1/artworks?page={pageNumber}
-
-Response Structure:
-
-{
-  pagination: {
-    total: number,
-    limit: number,
-    current_page: number
-  },
-  data: Artwork[]
-}
 Fields Displayed:
 
 title – Artwork title
